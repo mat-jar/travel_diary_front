@@ -74,7 +74,7 @@ class Navbar extends Component {
 
 
 
-  <form className="mx-1 my-auto d-inline w-43" onSubmit={this.handleSubmit}>
+  <form className="mx-1 my-auto d-inline w-35" onSubmit={this.handleSubmit}>
   <div className="input-group">
     <input className="form-control mr-sm-2" onFocus={this.handleFocus} type="text" placeholder="Look up a title, a place or any words in the note" aria-label="Search" onChange={this.handleChange} ></input>
 
