@@ -1,0 +1,105 @@
+.w-43 {
+  width: 43%;
+}
+
+.w-45 {
+  width: 45%
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.display-5 {
+  font-size: 2.5rem;
+}
+
+.display-6 {
+  font-size: 2rem;
+}
+
+.display-7 {
+  font-size: 1.75rem;
+}
+
+.display-8 {
+  font-size: 1.5rem;
+}
+
+.display-9 {
+  font-size: 1.25rem;
+}
+
+.display-10 {
+  font-size: 1rem;
+}
+
+.rounded-left-1 {
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+
+.rounded-left-1-5 {
+    border-bottom-left-radius: 1.5rem;
+    border-top-left-radius: 1.5rem;
+}
+
+.rounded-left-2 {
+    border-bottom-left-radius: 2rem;
+    border-top-left-radius: 2rem;
+}
+
+.rounded-right-1 {
+    border-bottom-right-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.rounded-right-1-5 {
+    border-bottom-right-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+}
+
+.rounded-right-2 {
+    border-bottom-right-radius: 2rem;
+    border-top-right-radius: 2rem;
+}
+
+.navbar-text{
+  font-size: 1.5rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
+}
+
+.table-hover tr:hover{
+filter: brightness(90%);
+}
+
+.centered {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.p-2rem {
+  padding: 2rem;
+}
+
+
+input:focus{
+  outline: none;
+}
+
+.btn-google{
+  background-color: #4185f4 !important;
+}
+
+.btn-google:hover {
+  background-color: #198754 !important;
+  }
+
+
+.title-text {
+font-family: 'Nunito', sans-serif;
+}
+
+@media (max-width: 700px) {
+}
