@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap-social/bootstrap-social.css";
@@ -12,18 +12,16 @@ import { faGlobeEurope, faGlobeAmericas, faGlobeOceania, faGlobeAsia,faGlobeAfri
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
-import * as Utils from './Utils'
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
-import Search from "./components/Search";
 import ProfileSettings from "./components/ProfileSettings";
 
 
 export default function App() {
 
   const [isUserSigned, setIsUserSigned] = useState(false);
-  const [searchPhrase, setSearchPhrase] = useState();
+  const [searchPhrase, setSearchPhrase] = useState("");
 
 
   function showToast(message) {
@@ -64,9 +62,9 @@ export default function App() {
             <Route index element={<Home
                                   isUserSigned={isUserSigned}
                                   setIsUserSigned={setIsUserSigned}
+                                  searchPhrase={searchPhrase}
+                                  setSearchPhrase = {setSearchPhrase}
                                   />} />
-            <Route exact path="/search" element={<Search
-                          searchPhrase={searchPhrase}/>} />
 
             <Route path="*" element={<NoMatch />} />
             <Route exact path="/profilesettings" element={<ProfileSettings

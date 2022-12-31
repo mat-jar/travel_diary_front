@@ -16,7 +16,9 @@ export default function Home(props) {
 
   <div className="row">
   {(isUserSigned && isUserSigned !== "unlogged") ? (
-  <Entries/>
+  <Entries
+  searchPhrase={props.searchPhrase}
+  setSearchPhrase={props.setSearchPhrase}/>
 
   ) : (
   <>

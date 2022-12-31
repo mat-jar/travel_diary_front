@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import {  Link } from "react-router-dom";
-import * as Utils from '../Utils'
 import { useNavigate} from "react-router-dom";
 import { GoogleLogout } from 'react-google-login';
 import runtimeEnv from '@mars/heroku-js-runtime-env';
-import { gapi } from 'gapi-script';
-
-const CLIENT_ID = runtimeEnv().REACT_APP_GOOGLE_CLIENT_ID;
 
 class Navbar extends Component {
 
@@ -40,17 +36,16 @@ class Navbar extends Component {
     }
 
     handleSubmit(event) {
+      //console.log(this.state.searchPhrase)
+      event.preventDefault();
       if (event.key === 'Enter'){
         event.target.blur();
       }
-      const {navigation} = this.props;
       this.props.setSearchPhrase(this.state.searchPhrase);
-      navigation("/search")
-      event.preventDefault();
     }
 
     logout(response) {
-      console.log(response, "Google logout response")
+      //console.log(response, "Google logout response")
       localStorage.clear();
       this.props.setIsUserSigned(false);
       this.setState(state => ({
@@ -66,7 +61,7 @@ class Navbar extends Component {
   <nav className="navbar navbar-expand navbar-dark bg-dark text-center">
   <ul className="navbar-nav me-5 ms-5">
     <li className="nav-item">
-        <Link to="/" className="btn btn-outline-success px-5 my-2 my-sm-0">
+        <Link to="/" onClick={this.forceUpdate} className="btn btn-outline-success px-5 my-2 my-sm-0">
         Home
         </Link>
     </li>
