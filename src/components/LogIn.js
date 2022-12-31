@@ -1,7 +1,5 @@
 import React from "react";
-import {GoogleLogin, GoogleLogout } from "react-google-login";
-import GoogleButton from 'react-google-button'
-import * as Utils from '../Utils'
+import {GoogleLogin} from "react-google-login";
 import runtimeEnv from '@mars/heroku-js-runtime-env';
 import { gapi } from 'gapi-script';
 
@@ -12,9 +10,8 @@ const API_AUTH_URL = runtimeEnv().REACT_APP_API_URL + '/api/v1/social_auth/callb
 export default function Login(props) {
 
   const responseGoogle = (response) => {
-    console.log(response, "Google response")
+    //console.log(response, "Google response")
     localStorage.setItem("user_name", response.wt.rV);
-    var token = response;
     var data = {
       provider: "google_oauth2",
       uid: response.Ca,
@@ -22,7 +19,7 @@ export default function Login(props) {
       email: response.wt.NT,
       name: response.wt.rV
     }
-    console.log(data, "reguest to Rails API")
+    //console.log(data, "reguest to Rails API")
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -35,8 +32,8 @@ export default function Login(props) {
     return fetch(API_AUTH_URL, requestOptions)
     .then(response => response.json())
     .then(response => {
-      console.log(response,  "Rails API response");
-      console.log(response.headers["access-token"],  "Rails API response.access-token");
+      //console.log(response,  "Rails API response");
+      //console.log(response.headers["access-token"],  "Rails API response.access-token");
       if (response.headers) {
         localStorage.setItem("access-token", response.headers["access-token"]);
         localStorage.setItem("uid", response.headers.uid);
