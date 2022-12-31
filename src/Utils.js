@@ -52,3 +52,9 @@ function validateHeaders() {
     return error.errors;
     });
 }
+
+export function formatDate(created_at) {
+  const d = new Date(created_at)
+  const formatedDate = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear()
+  return formatedDate
+}
