@@ -105,5 +105,15 @@ input:focus{
 font-family: 'Nunito', sans-serif;
 }
 
+.entry-details-button {
+  color: black;
+  border: 2px solid black;
+}
+
+.entry-details-button:hover {
+  color: black;
+  border: 2px solid black;
+}
+
 @media (max-width: 700px) {
 }
