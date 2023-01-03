@@ -1,70 +1,16 @@
-# Getting Started with Create React App
+# Travel Diary app
+## tl;dr
+- Ruby on Rails backend and React frontend, both hosted on Heroku
+- Front:
+  - https://travel-diary.herokuapp.com
+  - Gitgub repo: <a href='https://github.com/mat-jar/travel_diary_front'>travel_diary_front</a>
+  - React: class and function components, useState, useEffect, conditional render, axios, runtimeEnv, bootstrap, react-bootstrap, font-awesome,  custom css, react-toastify, confirmation pop-up (react-bootstrap Modal), OAuth (react-google-login, gapi), localStorage, backend authorisation with request headers
+- API:
+  - https://travel-diary-api.herokuapp.com
+  - Gitgub repo: <a href='https://github.com/mat-jar/travel_diary_api'>travel_diary_api</a>
+  - RoR: api, OAuth (Google), Devise, devise_token_auth, service objects, query objects, httparty, PostgreSQL, Rspec (request tests), external API integration
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## About
+Travel Diary is a demonstration app meant to summarize some of my RoR and React skills as well as investigate OAuth login with Google. It allows users to create their own diary with travel experiences.  <br />
+The functionality includes logging with Google credentials ang managing entries (creating, updating, deleting and listing).  <br />
+While creating a new entry the current weather is automatically fetched from external API (<a href='https://www.visualcrossing.com'>https://www.visualcrossing.com</a>).
