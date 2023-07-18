@@ -1,4 +1,3 @@
-import runtimeEnv from '@mars/heroku-js-runtime-env';
 import axios from "axios";
 
 export const displayCorners = (side) => {
@@ -41,7 +40,7 @@ export function authHeaders() {
 
 function validateHeaders() {
 
-  const API_VALIDATE_HEADERS = runtimeEnv().REACT_APP_API_URL + '/api/v1/auth/validate_token';
+  const API_VALIDATE_HEADERS = process.env.REACT_APP_API_URL + '/api/v1/auth/validate_token';
 
   return axios
   .post(API_VALIDATE_HEADERS, {}, { headers: authHeaders() })

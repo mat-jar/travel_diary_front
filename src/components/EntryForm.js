@@ -1,10 +1,8 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 import * as Utils from '../Utils'
-import {displayCorners} from '../Utils'
 import DeleteConfirmation from "./DeleteConfirmation";
 import EditConfirmation from "./EditConfirmation";
-import EntryNoteEditor from "./EntryNoteEditor";
 
 const API_URL = process.env.REACT_APP_API_URL + '/api/v1/entries';
 
@@ -35,31 +33,6 @@ export default function EntryDetails(props) {
   const selectedEntry = props.selectedEntry;
   const entryDate = Utils.formatDate(selectedEntry.created_at)
 
-  const setIsNewEntry = props.setIsNewEntry;
-  const isNewEntry = props.isNewEntry;
-
-
-
-  useEffect( () => {
-    if (entryTitle !== selectedEntry.title) {
-      validateAllFields();
-    } else if (entryPlace !== selectedEntry.place) {
-      validateAllFields();
-    } else if (entryNote !== selectedEntry.note) {
-      validateAllFields();
-    } else if (entryWeather !== selectedEntry.weather) {
-      validateAllFields();
-    } else {
-      setIsFormValid(false);
-    }
-  }, [entryTitle, entryPlace, entryNote, entryWeather]);
-
-  useEffect( () => {
-    setEntryTitle("");
-    setEntryPlace("");
-    setEntryNote("");
-  }, [props.isNewEntry]);
-
   function handleUserInput(e){
     const {name, value} = e.target;
     switch(name) {
@@ -81,6 +54,20 @@ export default function EntryDetails(props) {
     //validateForm(name, value);
   }
 
+  useEffect( () => {
+  if (entryTitle !== selectedEntry.title) {
+    validateAllFields();
+  } else if (entryPlace !== selectedEntry.place) {
+    validateAllFields();
+  } else if (entryNote !== selectedEntry.note) {
+    validateAllFields();
+  } else if (entryWeather !== selectedEntry.weather) {
+    validateAllFields();
+  } else {
+    setIsFormValid(false);
+  }
+}, [entryTitle, entryPlace, entryNote, entryWeather]);
+
   function validateAllFields() {
     let fieldValidationErrors = formErrors;
     let titleValid = isTitleValid;
@@ -91,7 +78,7 @@ export default function EntryDetails(props) {
     titleValid = entryTitle.length >= 1;
     fieldValidationErrors.title = titleValid ? '' : " can't be blank";
 
-    placeValid = (/^[A-Za-z\s]*$/i).test(entryPlace) && entryPlace.length >= 1;
+    placeValid = (/^[A-Za-z\s]*$/i).test(entryPlace);
     fieldValidationErrors.place = placeValid ? '': ' can only have letters';
 
     noteValid = entryNote.length >= 1;
@@ -166,7 +153,6 @@ export default function EntryDetails(props) {
         setIsNoteValid(false);
         setFormErrors({entry_title: '', entry_place: '', entry_note: ''});
         props.fetchEntries();
-        setIsNewEntry(false);
         return response;
         },
         error => {
@@ -240,18 +226,6 @@ export default function EntryDetails(props) {
     setIsEditEntry(false);
   }
 
-  function handleCancelAddNewEntry(e) {
-    e.preventDefault();
-    setIsNewEntry(false);
-  }
-
-  function expand_textarea(e) {
-    const { name, value, parentNode } = e.target;
-
-    parentNode.dataset.replicatedValue = value
-    setEntryNote(value);
-  }
-
 
 
   return(
@@ -268,14 +242,13 @@ export default function EntryDetails(props) {
     handleEdit = {handleEdit}
     selectedEntrySlug = {selectedEntry.slug}
   />
-  {(selectedEntry && selectedEntry !== "new" && !isEditEntry && !isNewEntry) && (
+  {(selectedEntry && selectedEntry !== "new" && !isEditEntry) && (
   <div className="row">
   <p className="display-8 text-center my-4">
   <b className="h4">{selectedEntry.title}</b> in {selectedEntry.place} </p>
   <p className="display-8 my-4">Date: {entryDate}</p>
   <p className="display-8 my-4">Weather: {selectedEntry.weather}</p>
   <p className="display-8 my-4">{selectedEntry.note}</p>
-  <div className="display-8 my-4 multiline">{selectedEntry.note}</div>
   <div className="d-flex w-100 justify-content-around">
   <button className="btn btn-success entry-details-button px-5 my-2 my-sm-0"
           onClick={handleShowEditForm}>Edit entry</button>
@@ -284,134 +257,73 @@ export default function EntryDetails(props) {
   </div>
   </div>
   )}
-  {(selectedEntry === "new" && !isEditEntry && !isNewEntry) && (
-  <>
+  {(selectedEntry === "new" && !isEditEntry) && (
   <div className="row">
   <p className="display-8 text-center my-4">Add new entry</p>
-  <form className="newEntryForm my-4" >
-    <div className="form-group form-input-group">
-    <label className="form-input-label" htmlFor="title">Title</label>
-    <input type="title" className="form-control" name="title"/>
-    </div>
-    <div className="form-group form-input-group">
-    <label className="form-input-label" htmlFor="place">Place</label>
-    <input type="place" className="form-control" name="place"/>
-    </div>
-    <div className="form-group form-input-group">
-    <label className="form-input-label" htmlFor="note">Note</label>
-
-    <input type="note" className="form-control" name="note"/>
-    </div>
-
-
-     </form>
-
-     <div className="d-flex w-100 justify-content-around">
-     <button className="btn btn-success entry-details-button px-5 my-2 my-sm-0"
-             onClick={handleCancelEdit}>Cancel adding new entry</button>
-     <button className="btn btn-success entry-details-button px-5 my-2 my-sm-0"
-             onClick={handleSubmit}
-             disabled={!isFormValid} >Save new entry</button>
-     </div>
-
-  </div>
-  <div className={"overlay position-absolute " + displayCorners("right")}>
-  <div>
-  <span className="overlay-text ">Click the + button to add a new entry </span>
-  </div>
-  </div>
-
-  </>
-  )}
-
-  {(isNewEntry && !isEditEntry) && (
-  <>
-  <div className="row">
-  <p className="display-8 text-center my-4">Add new entry</p>
-  <form className="newEntryForm my-4" >
-    <div className="form-group form-input-group">
-    <label className="form-input-label" htmlFor="title">Title</label>
-    <input type="title" className="form-control" name="title"
-          value={entryTitle}
-           onChange={handleUserInput} required />
-    </div>
-    <div className="form-group form-input-group">
-    <label className="form-input-label" htmlFor="place">Place</label>
-    <input type="place" className="form-control" name="place"
-          value={entryPlace}
-           onChange={handleUserInput} required />
-    </div>
-    <div className="form-group form-input-group">
-    <label className="form-input-label" htmlFor="note">Note</label>
-    <input type="note" className="form-control" name="note"
-          value={entryNote}
-           onChange={handleUserInput} required />
-
-
-    </div>
-
-    <div>
-    <EntryNoteEditor/>
-    </div>
-
-
-
-
-     </form>
-
-     <div className="d-flex w-100 justify-content-around">
-     <button className="btn btn-success entry-details-button px-5 my-2 my-sm-0"
-             onClick={handleCancelAddNewEntry}>Cancel adding new entry</button>
-     <button className="btn btn-success entry-details-button px-5 my-2 my-sm-0"
-             onClick={handleSubmit}
-             disabled={!isFormValid} >Save new entry</button>
-     </div>
-
-
-
-  </div>
-  </>
-  )}
-
-  {(selectedEntry && isEditEntry && !isNewEntry) && (
-  <div className="row">
-  <p className="display-8 text-center my-4">Edit entry</p>
-  <form className="newEntryForm my-4">
-    <div className="form-group form-input-group">
-    <label className="form-input-label" htmlFor="title">Title</label>
+  <form className="newEntryForm" onSubmit={handleSubmit}>
+    <div className="form-group">
+    <label htmlFor="title">Title</label>
     <input type="title" className="form-control" name="title"
           placeholder="Title" value={entryTitle}
            onChange={handleUserInput} required />
     </div>
-    <div className="form-group form-input-group">
-    <label className="form-input-label" htmlFor="place">Place</label>
+    <div className="form-group">
+    <label htmlFor="place">Place</label>
     <input type="place" className="form-control" name="place"
           placeholder="Place" value={entryPlace}
            onChange={handleUserInput} required />
     </div>
-    <div className="form-group form-input-group">
-    <label className="form-input-label" htmlFor="note">Note</label>
+    <div className="form-group">
+    <label htmlFor="note">Note</label>
     <input type="note" className="form-control" name="note"
           placeholder="Note" value={entryNote}
            onChange={handleUserInput} required />
     </div>
 
-    <div className="form-group form-input-group">
-    <label className="form-input-label" htmlFor="weather">Weather</label>
+    <button type="submit" className="btn btn-primary" disabled={!isFormValid}>Save new entry</button>
+     </form>
+  </div>
+  )}
+
+  {(selectedEntry && isEditEntry) && (
+  <div className="row">
+  <p className="display-8 text-center my-4">Edit entry</p>
+  <form className="newEntryForm">
+    <div className="form-group">
+    <label htmlFor="title">Title</label>
+    <input type="title" className="form-control" name="title"
+          placeholder="Title" value={entryTitle}
+           onChange={handleUserInput} required />
+    </div>
+    <div className="form-group">
+    <label htmlFor="place">Place</label>
+    <input type="place" className="form-control" name="place"
+          placeholder="Place" value={entryPlace}
+           onChange={handleUserInput} required />
+    </div>
+    <div className="form-group">
+    <label htmlFor="note">Note</label>
+    <input type="note" className="form-control" name="note"
+          placeholder="Note" value={entryNote}
+           onChange={handleUserInput} required />
+    </div>
+
+    <div className="form-group">
+    <label htmlFor="weather">Weather</label>
     <input type="weather" className="form-control" name="weather"
           placeholder="Weather" value={entryWeather}
            onChange={handleUserInput} required />
     </div>
 
+    <button type="submit" className="btn btn-primary" disabled={!isFormValid}>Save new entry</button>
+
     </form>
 
-    <div className="d-flex w-100 justify-content-around">
     <button className="btn btn-success entry-details-button px-5 my-2 my-sm-0"
             onClick={handleCancelEdit}>Cancel edit</button>
     <button className="btn btn-success entry-details-button px-5 my-2 my-sm-0"
             onClick={handleShowEditConfirmation}
             disabled={!isFormValid} >Edit entry</button>
-    </div>
 
   </div>
   )}

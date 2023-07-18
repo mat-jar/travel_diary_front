@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import {  Link } from "react-router-dom";
 import { useNavigate} from "react-router-dom";
-import { GoogleLogout } from 'react-google-login';
-import runtimeEnv from '@mars/heroku-js-runtime-env';
+//import { GoogleLogout } from 'react-google-login';
+//import { googleLogout } from '@react-oauth/google';
+
+
 
 class Navbar extends Component {
 
@@ -99,6 +101,7 @@ class Navbar extends Component {
     </li>
 
     <li className="nav-item">
+    {/*
         <GoogleLogout
         render={renderProps => (
           <button className="btn btn-outline-success mx-2 px-5 my-2 my-sm-0" onClick={renderProps.onClick} disabled={renderProps.disabled}>
@@ -107,6 +110,7 @@ class Navbar extends Component {
           onLogoutSuccess={this.logout}
         >
         </GoogleLogout>
+      */}
     </li>
 
     </ul>

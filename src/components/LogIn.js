@@ -1,16 +1,21 @@
 import React from "react";
-import {GoogleLogin} from "react-google-login";
-import runtimeEnv from '@mars/heroku-js-runtime-env';
-import { gapi } from 'gapi-script';
+//import {GoogleLogin} from "react-google-login";
+//import { gapi } from 'gapi-script';
+import axios from "axios";
 
-const CLIENT_ID = runtimeEnv().REACT_APP_GOOGLE_CLIENT_ID;
-const API_AUTH_URL = runtimeEnv().REACT_APP_API_URL + '/api/v1/social_auth/callback';
+import { GoogleLogin } from '@react-oauth/google';
+import * as Utils from '../Utils'
+
+const API_AUTH_URL = process.env.REACT_APP_API_URL + '/api/v1/social_auth/callback';
+const API_URL = process.env.REACT_APP_API_URL + '/api/v1/entries';
 
 
 export default function Login(props) {
 
   const responseGoogle = (response) => {
-    //console.log(response, "Google response")
+    console.log(response, "Google response")
+    fetchEntries();
+    /*
     localStorage.setItem("user_name", response.wt.rV);
     var data = {
       provider: "google_oauth2",
@@ -20,16 +25,15 @@ export default function Login(props) {
       name: response.wt.rV
     }
     //console.log(data, "reguest to Rails API")
+
     const requestOptions = {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${response.xc.access_token}`,
-        'Content-Type': 'application/json',
-        'access_token': `${response.xc.access_token}`
-      },
-      body: JSON.stringify(data)
+      body: JSON.stringify({access_token: response.credential}),
+      credentials: "include"
     }
-    return fetch(API_AUTH_URL, requestOptions)
+    return axios
+    .post(API_AUTH_URL,
+      { access_token: response.credential})
     .then(response => response.json())
     .then(response => {
       //console.log(response,  "Rails API response");
@@ -42,7 +46,24 @@ export default function Login(props) {
       }
   })
     .catch(err=>console.log(err))
+ */
   }
+
+  function fetchEntries() {
+      return axios
+      .post(API_URL,
+        { entry: "koza"
+        }, { headers: Utils.authHeaders() })
+      .then(response => {
+         console.log(response);
+        },
+        error => {
+          console.log(error);
+        return error;
+        });
+  }
+
+
 
 
     return (
@@ -51,6 +72,13 @@ export default function Login(props) {
       <div className="row d-flex justify-content-md-center">
 
       <div className="col-md-8 text-center">
+
+            <GoogleLogin
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            />;
+
+{/*
             <GoogleLogin
             clientId={CLIENT_ID}
             render={renderProps => (
@@ -63,6 +91,7 @@ export default function Login(props) {
               onFailure={responseGoogle}
               isSignedIn={true}
             />
+*/}
 
         </div>
 
